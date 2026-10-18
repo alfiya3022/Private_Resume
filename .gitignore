@@ -36,3 +36,7 @@ Thumbs.db
 # Playwright generated output
 frontend/test-results/
 frontend/playwright-report/
+
+# Local database backups
+*.dump
+*.sql
