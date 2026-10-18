@@ -1,0 +1,38 @@
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Frontend dependencies and build output
+node_modules/
+dist/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Test and tooling caches
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# Local databases and generated files
+*.sqlite3
+*.db
+uploads/
+generated/
+
+# Operating system and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Playwright generated output
+frontend/test-results/
+frontend/playwright-report/
