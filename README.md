@@ -1,26 +1,97 @@
-# PrivateResume
+## Development Status
 
-A privacy-first, local-first resume tailoring and job application management platform.
+**Current database milestone:** E01 — Database Schema
 
-## Technology
+**Foundation milestone:** E00 — Project Foundation
 
-- Frontend: React, Vite, JavaScript, Tailwind CSS
-- Backend: Python, FastAPI
-- Database: PostgreSQL
-- Local AI runtime: Ollama
+### E00 — Project Foundation
 
-## Architecture
+Implemented foundation:
 
-The React frontend communicates with the FastAPI backend over HTTP.
-The backend owns business logic and communicates with the database and
-other approved local services. The frontend does not access PostgreSQL
-or Ollama directly.
+- React, Vite, and Tailwind CSS frontend
+- FastAPI backend with health endpoints
+- PostgreSQL through Docker Compose with persistent storage
+- Environment-based database configuration
+- Frontend-to-backend development proxy
+- Pytest backend tests
+- Playwright browser integration test
 
-## Development
+E00 remains in progress until its required CI checks, documentation, QA records, pull request review, and merge into `main` are complete.
 
-Frontend setup instructions will be maintained here as the development
-environment is established.
+### E01 — Database Schema
 
-## Project status
+Implemented work reported so far:
 
-See [PROJECT_STATE.md](PROJECT_STATE.md) for verified progress.
+- SQLAlchemy ORM models and model tests
+- Alembic migration configuration and migration files
+- Additive migration for `skills`, `match_results`, and `project_skill_evidence`
+- Migration command completed without a reported error
+- Backend regression suite: 10 passed, 1 warning
+
+The migration and test results have been reported by the developer. Post-migration data preservation, complete schema parity, and CI results must not be considered verified until evidence is recorded.
+
+## Local Development
+
+### PostgreSQL
+
+From the repository root:
+
+```powershell
+docker compose up -d db
+docker compose ps
+```
+
+The development database is exposed on `127.0.0.1:5433`.
+
+### Backend
+
+From `backend/`, activate the virtual environment and run:
+
+```powershell
+python -m uvicorn app.main:app --reload
+```
+
+API documentation: http://127.0.0.1:8000/docs
+
+Health endpoints:
+
+- `/api/health`
+- `/api/health/db`
+
+### Frontend
+
+From `frontend/`:
+
+```powershell
+npm run dev
+```
+
+The frontend development server proxies `/api` requests to the local FastAPI server on port 8000.
+
+### Testing
+
+Run the frontend production build from `frontend/`:
+
+```powershell
+npm run build
+```
+
+Run the browser end-to-end test from `frontend/`:
+
+```powershell
+npm run test:e2e
+```
+
+Run backend tests from `backend/`:
+
+```powershell
+python -m pytest -v
+```
+
+The latest reported backend regression result is **10 passed, 1 warning**.
+
+## Environment Variables
+
+Create `.env` from `.env.example` and configure the local PostgreSQL credentials.
+
+Never commit `.env`, database backups, or other secrets. `.env.example` must contain placeholder values only.
