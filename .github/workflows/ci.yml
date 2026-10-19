@@ -43,6 +43,11 @@ jobs:
     name: Backend tests
     runs-on: ubuntu-latest
 
+    env:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: private_resume
+
     defaults:
       run:
         working-directory: backend
